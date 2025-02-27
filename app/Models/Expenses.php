@@ -14,4 +14,13 @@ class Expenses extends Model
         'category',
         'date',
     ];
+
+    protected $casts = [
+        'date' => 'datetime',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

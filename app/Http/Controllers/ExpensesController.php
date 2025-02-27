@@ -7,12 +7,17 @@ use Illuminate\Http\Request;
 
 class ExpensesController extends Controller
 {
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $expenses = Expenses::all();
+        $expenses = auth()->user()->expenses;
 
         return view('expenses.index', compact('expenses'));
     }
@@ -37,12 +42,13 @@ class ExpensesController extends Controller
             'date' =>'required|date'
         ]);
 
-        Expenses::create([
+        auth()->user()->expenses()->create([
             'name' => $request->name,
             'amount' => $request->amount,
             'category' => $request->category,
             'date' => $request->date,
         ]);
+    
 
         return redirect()->route('expenses.index')->with('success', 'Expense added successfully');
     
@@ -61,6 +67,9 @@ class ExpensesController extends Controller
      */
     public function edit(Expenses $expense)
     {
+        if ($expense->user_id !== auth()->id()) {
+            return redirect()->route('expenses.index')->with('error', 'Unauthorized action.');
+        }
     // Pass the $expense model instance to the edit view
     return view('expenses.edit', compact('expense'));
     }
@@ -70,6 +79,10 @@ class ExpensesController extends Controller
      */
     public function update(Request $request, Expenses $expense)
     {
+
+        if ($expense->user_id !== auth()->id()) {
+            return redirect()->route('expenses.index')->with('error', 'Unauthorized action.');
+        }
     // Validate the incoming request data
     $request->validate([
         'name' => 'required|string|max:255',
@@ -93,6 +106,10 @@ class ExpensesController extends Controller
      */
     public function destroy(Expenses $expense)
     {
+        if ($expense->user_id !== auth()->id()) {
+            return redirect()->route('expenses.index')->with('error', 'Unauthorized action.');
+        }
+
         $expense->delete();
 
         return redirect()->route('expenses.index')->with('success', 'Expense deleted successfully');

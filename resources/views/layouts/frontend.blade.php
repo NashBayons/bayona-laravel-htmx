@@ -17,6 +17,8 @@
             <a href="{{ route('expenses.index') }}" class="text-decoration-none">Home</a>
             <span>|</span>
             <a href="{{ route('expenses.create') }}" class="text-decoration-none">Add Expense</a>
+            <span>|</span>
+            <a href="{{ route('dashboard') }}" class="text-decoration-none">Back to Dashboard</a>
         </nav>
     </header>
 
