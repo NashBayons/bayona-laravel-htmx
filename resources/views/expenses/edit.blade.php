@@ -4,7 +4,7 @@
 <h2>Edit Expense</h2>
 
 <!-- Edit Expense Form -->
-<div>
+<div class="container mt-4">
     <form action="{{ route('expenses.update', $expense->id) }}" method="POST">
         @csrf
         @method('PUT') <!-- Use PUT for update -->

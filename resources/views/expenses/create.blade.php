@@ -4,40 +4,40 @@
 
 @section('content')
 
-<h2>Add New Expense</h2>
-
 <!-- Add Expense Form -->
-<div>
-    <form action="{{ route('expenses.store') }}" method="POST">
+<div class="container mt-4">
+    <h3 class="text-center mb-3">Add Expense</h3>
+    
+    <form action="{{ route('expenses.store') }}" method="POST" class="mx-auto w-50 p-4 border rounded shadow">
         @csrf
 
-        <!-- Expense Name Field (in its own row) -->
-        <div class="form-row">
-            <label for="name">Expense Name:</label>
-            <input type="text" name="name" id="name" required>
+        <!-- Expense Name Field -->
+        <div class="mb-3">
+            <label for="name" class="form-label">Expense Name:</label>
+            <input type="text" name="name" id="name" class="form-control" required>
         </div>
 
-        <!-- Amount Field (in its own row) -->
-        <div class="form-row">
-            <label for="amount">Amount:</label>
-            <input type="number" name="amount" id="amount" required>
+        <!-- Amount Field -->
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" name="amount" id="amount" class="form-control" required>
         </div>
 
-        <!-- Category Field (in its own row) -->
-        <div class="form-row">
-            <label for="category">Category:</label>
-            <input type="text" name="category" id="category" required>
+        <!-- Category Field -->
+        <div class="mb-3">
+            <label for="category" class="form-label">Category:</label>
+            <input type="text" name="category" id="category" class="form-control" required>
         </div>
 
-        <!-- Date Field (in its own row) -->
-        <div class="form-row">
-            <label for="date">Date:</label>
-            <input type="date" name="date" id="date" required>
+        <!-- Date Field -->
+        <div class="mb-3">
+            <label for="date" class="form-label">Date:</label>
+            <input type="date" name="date" id="date" class="form-control" required>
         </div>
 
         <!-- Submit Button -->
-        <div class="form-row">
-            <button type="submit">Add Expense</button>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Add Expense</button>
         </div>
     </form>
 </div>
