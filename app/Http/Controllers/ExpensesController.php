@@ -8,10 +8,7 @@ use Illuminate\Http\Request;
 class ExpensesController extends Controller
 {
 
-    public function user()
-{
-    return $this->belongsTo(User::class);
-}
+    
     /**
      * Display a listing of the resource.
      */

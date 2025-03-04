@@ -17,23 +17,28 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="expenses-table-body">
                 @foreach ($expenses as $expense)
-                <tr>
+                <tr id="expense-{{ $expense->id }}">
                     <td>{{ $expense->name }}</td>
-                    <td>${{ number_format($expense->amount, 2) }}</td>
+                    <td>PHP{{ number_format($expense->amount, 2) }}</td>
                     <td>{{ $expense->category }}</td>
-                    <td>{{ $expense->date->format('Y-m-d') }}</td> <!-- Format the date properly -->
+                    <td>{{ $expense->date->format('Y-m-d') }}</td>
                     <td>
-                        <a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-sm btn-primary" 
+                           hx-get="{{ route('expenses.edit', $expense->id) }}" 
+                           hx-target="#main-content" 
+                           hx-push-url="true">Edit</a>
 
                         <!-- Delete Form -->
-                        <form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="d-inline">
+                        <form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" class="d-inline" 
+                              hx-delete="{{ route('expenses.destroy', $expense->id) }}" 
+                              hx-target="#expense-{{ $expense->id }}" 
+                              hx-swap="tbody" 
+                              hx-confirm="Are you sure you want to delete this expense?">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this expense?')">
-                                Delete
-                            </button>
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
