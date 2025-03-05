@@ -16,6 +16,10 @@ class ExpensesController extends Controller
     {
         $expenses = auth()->user()->expenses;
 
+        if (request()->expectsJson() || request()->is('htmx')) {
+            return view('expenses.index', compact('expenses'))->render();  // Only return the content part
+        }
+    
         return view('expenses.index', compact('expenses'));
     }
 
@@ -104,11 +108,11 @@ class ExpensesController extends Controller
     public function destroy(Expenses $expense)
     {
         if ($expense->user_id !== auth()->id()) {
-            return redirect()->route('expenses.index')->with('error', 'Unauthorized action.');
+            return response()->redirectToRoute('expenses.index')->with('error', 'Unauthorized action.');
         }
 
         $expense->delete();
 
-        return redirect()->route('expenses.index')->with('success', 'Expense deleted successfully');
+        return response()->redirectToRoute('expenses.index')->with('success', 'Expense deleted successfully');
     }
 }

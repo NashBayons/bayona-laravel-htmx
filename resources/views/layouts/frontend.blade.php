@@ -1,3 +1,5 @@
+<!-- resources/views/layouts/app.blade.php -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,16 +15,17 @@
     <header class="text-center py-3 bg-light">
         <h1>Expense Tracker</h1>
         <nav class="d-flex justify-content-center gap-3">
-            <a href="{{ route('expenses.index') }}" class="text-decoration-none" hx-get="{{ route('expenses.index') }}" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Home</a>
+            <x-nav-link :href="route('expenses.index')" :active="request()->routeIs('expenses.index')" hx-boost="true" hx-push-url="true">{{ __('Home') }}</x-nav-link>
             <span>|</span>
-            <a href="{{ route('expenses.create') }}" class="text-decoration-none" hx-get="{{ route('expenses.create') }}" hx-target="#main-content" hx-swap="innerHTML" hx-push-url="true">Add Expense</a>
+            <x-nav-link :href="route('expenses.create')" :active="request()->routeIs('expenses.create')" hx-boost="true" hx-push-url="true">{{ __('Add Expense') }}</x-nav-link>
             <span>|</span>
             <a href="{{ route('dashboard') }}" class="text-decoration-none">Back to Dashboard</a>
         </nav>
     </header>
 
+    <!-- Main Content Area -->
     <div id="main-content" class="container text-center flex-grow-1">
-        @yield('content')
+        @yield('content') <!-- This will render the content for the current page -->
     </div>
 
     <footer class="text-center py-3 bg-light mt-auto">
